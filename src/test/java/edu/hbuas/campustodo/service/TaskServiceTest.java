@@ -132,4 +132,14 @@ class TaskServiceTest {
                 () -> all.add(new Task(99, "Injected")),
                 "返回的列表应不可修改，防止外部绕过 addTask 改变内部状态");
     }
+
+    @Test
+    @DisplayName("completeTask：根据id将任务标记为已完成")
+    void completeTask_setTaskCompleted() {
+        Task task = service.addTask("上交作业");
+        service.completeTask(task.getId());
+        assertThat(service.getTaskById(task.getId()).isCompleted()).isTrue();
+    }
+
+
 }
