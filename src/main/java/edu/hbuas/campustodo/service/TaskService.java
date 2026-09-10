@@ -51,6 +51,10 @@ public class TaskService {
         tasks.add(task);
         return task;
     }
+    public void completeTask(long id){
+
+    }
+
 
     /**
      * 返回当前所有任务的只读视图。
