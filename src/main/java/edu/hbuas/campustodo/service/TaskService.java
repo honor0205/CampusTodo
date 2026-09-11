@@ -71,4 +71,5 @@ public class TaskService {
         Task task = getTaskById(id);
         task.setCompleted(true);
     }
+
 }
