@@ -10,13 +10,13 @@ import edu.hbuas.campustodo.model.Priority;
 /**
  * 任务服务，负责管理任务的生命周期。
  *
- * @author CampusTodo Lab
+ * 保持实现简单以满足基线测试：按插入顺序存储任务，提供新增、查询、按优先级筛选与标记完成等方法。
  */
 public class TaskService {
     /** 内部任务存储，按插入顺序保留。 */
     private final List<Task> tasks = new ArrayList<>();
 
-    /** 下一个可分配的任务id，从1开始自增。 */
+    /** 下一个可分配的任务 id，从 1 开始自增。 */
     private long nextId = 1;
 
     public Task addTask(String title) {
@@ -28,14 +28,19 @@ public class TaskService {
         return task;
     }
 
+    /**
+     * 返回当前任务视图（不可修改）。
+     */
     public List<Task> listAll() {
         return Collections.unmodifiableList(tasks);
     }
 
     /**
      * 按优先级筛选任务。
+     * - priority 为 null 时返回空列表（满足测试对 null 的期望）
+     * - 优先级使用 enum 比较（==）更直观且高效
      *
-     * @param priority 目标优先级，若为 null 则返回空列表（避免 NPE 并匹配测试预期）
+     * @param priority 目标优先级
      * @return 匹配优先级的任务列表（按插入顺序）
      */
     public List<Task> filterByPriority(Priority priority) {
@@ -43,22 +48,27 @@ public class TaskService {
             return Collections.emptyList();
         }
         return tasks.stream()
-                .filter(t -> priority.equals(t.getPriority()))
+                .filter(t -> t.getPriority() == priority)
                 .collect(Collectors.toList());
     }
 
-    public Task getTaskById(long id){
-        for(Task task : tasks){
-            if(task.getId() == id){
-                return task;
+    /**
+     * 根据 id 查找任务；找不到时抛出 IllegalArgumentException（匹配测试预期）。
+     */
+    public Task getTaskById(long id) {
+        for (Task t : tasks) {
+            if (t.getId() == id) {
+                return t;
             }
         }
         throw new IllegalArgumentException("找不到该任务");
     }
 
+    /**
+     * 根据 id 将任务标记为已完成；如果任务不存在则抛出异常（与 getTaskById 一致）。
+     */
     public void completeTask(long id) {
         Task task = getTaskById(id);
         task.setCompleted(true);
     }
-
 }
