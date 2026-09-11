@@ -138,7 +138,7 @@ class TaskServiceTest {
     void completeTask_setTaskCompleted() {
         Task task = service.addTask("上交作业");
         service.completeTask(task.getId());
-        assertThat(service.getTaskById(task.getId()).isCompleted()).isTrue();
+        assertTrue(service.getTaskById(task.getId()).isCompleted(), "completeTask 应将任务标记为已完成");
     }
 
 
