@@ -52,6 +52,8 @@ public class TaskService {
         return task;
     }
 
+
+
     /**
      * 返回当前所有任务的只读视图。
      *
@@ -64,4 +66,19 @@ public class TaskService {
     public List<Task> listAll() {
         return Collections.unmodifiableList(tasks);
     }
+
+    public Task getTaskById(long id){
+        for(Task task : tasks){
+            if(task.getId() == id){
+                return task;
+            }
+        }
+        throw new IllegalArgumentException("找不到该任务");
+    }
+
+    public void completeTask(long id) {
+        Task task = getTaskById(id);
+        task.setCompleted(true);
+    }
+
 }
