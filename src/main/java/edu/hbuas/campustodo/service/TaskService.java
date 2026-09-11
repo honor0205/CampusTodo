@@ -1,4 +1,5 @@
 package edu.hbuas.campustodo.service;
+import edu.hbuas.campustodo.model.Priority;
 
 import edu.hbuas.campustodo.model.Task;
 
@@ -63,5 +64,11 @@ public class TaskService {
      */
     public List<Task> listAll() {
         return Collections.unmodifiableList(tasks);
+    }
+
+    public List<Task> filterByPriority(Priority priority) {
+        return tasks.stream()
+                .filter(task -> task.getPriority() == priority)
+                .toList();
     }
 }
