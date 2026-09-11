@@ -38,6 +38,8 @@ public class Task {
         this.id = id;
         this.title = title;
         this.completed = false;
+        //构造方法里面添加
+        this.priority = Priority.MEDIUM;
     }
 
     public long getId() {
@@ -67,5 +69,16 @@ public class Task {
     @Override
     public String toString() {
         return "Task{id=" + id + ", title='" + title + "', completed=" + completed + "}";
+    }
+
+    //新增字段
+    private Priority priority;
+
+    //新增getter、setter
+    public Priority getPriority() {
+        return priority;
+    }
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }
