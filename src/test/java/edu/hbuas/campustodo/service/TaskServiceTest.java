@@ -163,7 +163,6 @@ class TaskServiceTest {
         assertTrue(result.isEmpty());
     }
 
-    /*
     @Test
     @DisplayName("completeTask：根据id将任务标记为已完成")
     void completeTask_setTaskCompleted() {
@@ -172,7 +171,6 @@ class TaskServiceTest {
         assertTrue(service.getTaskById(task.getId()).isCompleted(), "completeTask 应将任务标记为已完成");
     }
 
-     */
 
 
 }

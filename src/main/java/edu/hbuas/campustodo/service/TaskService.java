@@ -31,6 +31,7 @@ public class TaskService {
         return Collections.unmodifiableList(tasks);
     }
 
+
     public List<Task> filterByPriority(Priority priority) {
         if (priority == null) {
             return Collections.emptyList();
@@ -61,4 +62,5 @@ public class TaskService {
             }
         }
     }
+
 }
