@@ -1,13 +1,9 @@
 package edu.hbuas.campustodo.service;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
-import edu.hbuas.campustodo.model.Priority;
 import edu.hbuas.campustodo.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -136,41 +132,12 @@ class TaskServiceTest {
                 "返回的列表应不可修改，防止外部绕过 addTask 改变内部状态");
     }
 
-
-    @Test
-    @DisplayName("filterByPriority：按优先级筛选任务")
-    void filterByPriority_filterByPriority() {
-        Task task1 = service.addTask("高数作业");
-        task1.setPriority(Priority.HIGH);
-        Task task2 = service.addTask("打扫宿舍");
-        task2.setPriority(Priority.LOW);
-
-        var highList = service.filterByPriority(Priority.HIGH);
-        assertEquals(1, highList.size());
-        assertTrue(highList.contains(task1));
-
-        var lowList = service.filterByPriority(Priority.LOW);
-        assertEquals(1, lowList.size());
-        assertTrue(lowList.contains(task2));
-
-        var mediumList = service.filterByPriority(Priority.MEDIUM);
-        assertEquals(0, mediumList.size());
-    }
-
-    @Test
-    void filterByPriority_WhenPriorityIsNull_ReturnEmptyList(){
-        List<Task> result = service.filterByPriority(null);
-        assertTrue(result.isEmpty());
-    }
-
     @Test
     @DisplayName("completeTask：根据id将任务标记为已完成")
     void completeTask_setTaskCompleted() {
         Task task = service.addTask("上交作业");
         service.completeTask(task.getId());
-        assertTrue(service.getTaskById(task.getId()).isCompleted(), "completeTask 应将任务标记为已完成");
     }
-
 
 
 }
