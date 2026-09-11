@@ -3,6 +3,7 @@ package edu.hbuas.campustodo.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import edu.hbuas.campustodo.model.Task;
 import edu.hbuas.campustodo.model.Priority;
 
@@ -29,6 +30,21 @@ public class TaskService {
 
     public List<Task> listAll() {
         return Collections.unmodifiableList(tasks);
+    }
+
+    /**
+     * 按优先级筛选任务。
+     *
+     * @param priority 目标优先级，若为 null 则返回空列表（避免 NPE 并匹配测试预期）
+     * @return 匹配优先级的任务列表（按插入顺序）
+     */
+    public List<Task> filterByPriority(Priority priority) {
+        if (priority == null) {
+            return Collections.emptyList();
+        }
+        return tasks.stream()
+                .filter(t -> priority.equals(t.getPriority()))
+                .collect(Collectors.toList());
     }
 
     public Task getTaskById(long id){
