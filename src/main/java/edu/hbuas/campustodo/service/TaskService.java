@@ -3,6 +3,7 @@ package edu.hbuas.campustodo.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import edu.hbuas.campustodo.model.Task;
 import edu.hbuas.campustodo.model.Priority;
 
@@ -14,13 +15,12 @@ import edu.hbuas.campustodo.model.Priority;
 public class TaskService {
     /** 内部任务存储，按插入顺序保留。 */
     private final List<Task> tasks = new ArrayList<>();
-
     /** 下一个可分配的任务id，从1开始自增。 */
     private long nextId = 1;
 
     public Task addTask(String title) {
         if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("Task title must not be null or blank.");
+            throw new IllegalArgumentException("Task title must not be null or blank");
         }
         Task task = new Task(nextId++, title.trim());
         tasks.add(task);
@@ -31,18 +31,13 @@ public class TaskService {
         return Collections.unmodifiableList(tasks);
     }
 
-
     public List<Task> filterByPriority(Priority priority) {
         if (priority == null) {
             return Collections.emptyList();
         }
-        List<Task> result = new ArrayList<>();
-        for (Task t : tasks) {
-            if(t.getPriority() == priority){
-                result.add(t);
-            }
-        }
-        return result;
+        return listAll().stream()
+                .filter(t -> priority.equals(t.getPriority()))
+                .collect(Collectors.toList());
     }
 
     public Task getTaskById(long id) {
@@ -62,5 +57,4 @@ public class TaskService {
             }
         }
     }
-
 }
