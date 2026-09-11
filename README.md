@@ -75,6 +75,10 @@ Issue → 建分支 → 小步提交 → Push → Draft Pull Request
 - 每个功能分支只解决一个 Issue；PR 描述必须使用 `Closes #编号` 建立关联。
 - 合并前必须通过自动化测试、解决全部评审意见，并取得至少 1 人 Approve。
 - 禁止使用 `git push --force`；出现错误时优先新增修复提交或使用 `git revert`。
+1. 从main分支拉出feature功能分支进行开发，分支命名遵循 feature/xxx 规范
+2. 开发完成后，提交Pull Request，并使用PR模板填写信息
+3. 提交PR后，CI自动执行mvn verify完成编译与单元测试校验
+4. 经过代码评审，确认无误后合并到main主分支
 
 ## Git 首次配置
 
