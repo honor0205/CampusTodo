@@ -67,8 +67,12 @@ public class TaskService {
     }
 
     public List<Task> filterByPriority(Priority priority) {
+        // 新增：判空，如果priority是null，直接返回空列表，防止空指针
+        if (priority == null) {
+            return Collections.emptyList();
+        }
         return tasks.stream()
-                .filter(task -> task.getPriority() == priority)
+                .filter( task -> task.getPriority() == priority)
                 .toList();
     }
 }

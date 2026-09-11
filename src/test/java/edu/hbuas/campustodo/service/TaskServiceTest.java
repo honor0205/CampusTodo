@@ -1,5 +1,6 @@
 package edu.hbuas.campustodo.service;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import edu.hbuas.campustodo.model.Priority;
 import edu.hbuas.campustodo.model.Task;
@@ -154,6 +155,12 @@ class TaskServiceTest {
 
         var mediumList = service.filterByPriority(Priority.MEDIUM);
         assertEquals(0, mediumList.size());
+    }
+
+    @Test
+    void filterByPriority_WhenPriorityIsNull_ReturnEmptyList(){
+        List<Task> result = service.filterByPriority(null);
+        assertTrue(result.isEmpty());
     }
 
     /*
