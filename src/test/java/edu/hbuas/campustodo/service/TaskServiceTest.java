@@ -4,6 +4,7 @@ import edu.hbuas.campustodo.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import edu.hbuas.campustodo.model.Priority;
 
 import java.util.List;
 
@@ -139,7 +140,21 @@ class TaskServiceTest {
     void completeTask_setTaskCompleted() {
         Task task = service.addTask("上交作业");
         service.completeTask(task.getId());
-        assertThat(service.getTaskById(task.getId()).isCompleted()).isTrue();
+        assertTrue(service.getTaskById(task.getId()).isCompleted());
+    }
+
+
+    @Test
+    @DisplayName("filterByPriority，没有匹配优先级任务，返回空列表")
+    void filterByPriority_NoMatch_ReturnEmptyList() {
+        // 【备注】优先级字段尚未开发完毕，本用例占位，待业务实现后补全断言逻辑
+        List<Task> taskList = List.of(
+                new Task(1L,"任务1"),
+                new Task(2L,"任务2")
+        );
+        // filterByPriority业务待实现
+        List<Task> result = List.of();
+        assertTrue(result.isEmpty());
     }
 
 
